@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us - Notes for Hope</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
+      color: #1f2937;
+    }
+  </style>
+</head>
+<body class="min-h-screen text-gray-800 p-6">
+  <!-- Header: unified nav across pages -->
+  <header class="max-w-6xl mx-auto flex justify-between items-center py-6">
+    <h1 class="text-3xl font-bold tracking-tight">Notes for Hope</h1>
+    <nav class="space-x-4">
+      <a href="index.html#home" class="text-gray-700 hover:text-black">Home</a>
+
+      <a href="performers.html" class="text-gray-700 hover:text-black">Performers</a>
+      <a href="past.html" class="text-gray-700">Past Performances</a>
+      <a href="contact.html" class="text-gray-700 hover:text-black">Contact</a>
+    </nav>
+  </header>
+
+  <main id="contact" class="max-w-2xl mx-auto mt-12">
+    <h2 class="text-4xl font-bold mb-6 text-center">Contact Us</h2>
+    <p class="text-center text-gray-600 mb-8">We'd love to hear from you! Whether you want to volunteer, collaborate, or just say hello, feel free to reach out.</p>
+
+    <form id="contact-form" class="bg-white p-6 rounded-2xl shadow-md">
+      <div class="mb-4">
+        <label for="name" class="block text-sm font-medium mb-1">Name</label>
+        <input type="text" id="name" name="name" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium mb-1">Email</label>
+        <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="title" class="block text-sm font-medium mb-1">Subject</label>
+        <input type="text" id="title" name="title" class="w-full border border-gray-300 rounded px-3 py-2" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="message" class="block text-sm font-medium mb-1">Message</label>
+        <textarea id="message" name="message" rows="5" class="w-full border border-gray-300 rounded px-3 py-2" required></textarea>
+      </div>
+
+      <input type="submit" value="Send" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded cursor-pointer">
+      <p id="form-status" class="text-sm mt-4 hidden"></p>
+    </form>
+  </main>
+
+  <footer class="mt-20 text-center text-sm text-gray-500">
+    &copy; <span id="year"></span> Notes for Hope. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // EmailJS (keep your real key/service/template IDs here)
+    emailjs.init("Wef96cbjOZkw9VBYJ");
+
+    document.getElementById("contact-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const statusEl = document.getElementById("form-status");
+      statusEl.classList.remove("hidden", "text-green-600", "text-red-600");
+      statusEl.textContent = "Sending...";
+
+      emailjs.sendForm("service_qs67crb", "template_i0e3shw", this)
+        .then(() => {
+          statusEl.textContent = "Message sent successfully!";
+          statusEl.classList.add("text-green-600");
+          this.reset();
+        }, () => {
+          statusEl.textContent = "Failed to send message. Please try again.";
+          statusEl.classList.add("text-red-600");
+        });
+    });
+  </script>
+</body>
+</html>

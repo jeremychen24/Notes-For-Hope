@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Performances - Notes for Hope</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+  <!--
+    ❗️IMPORTANT: You were using Tailwind's @apply inside a <style> tag.
+    That only works with a build step (PostCSS). Since you're loading Tailwind via CDN,
+    replace @apply with plain CSS and/or Tailwind utility classes in your HTML.
+  -->
+  <style>
+    :root {
+      --chip-bg: #ffffff;
+      --chip-fg: #374151; /* gray-700 */
+      --chip-border: #e5e7eb; /* gray-200 */
+      --chip-hover-border: #d1d5db; /* gray-300 */
+      --chip-active-bg: #111827; /* gray-900 */
+      --chip-active-fg: #ffffff;
+      --ring: rgba(59, 130, 246, 0.18); /* blue-500 @ 18% */
+    }
+
+    body {
+      background: linear-gradient(135deg, #ffffff, #f1f5f9);
+    }
+
+    /* --- Polished chips (filter buttons) --- */
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      border: 1px solid var(--chip-border);
+      border-radius: 9999px;
+      padding: .5rem 1rem;
+      font-weight: 600;
+      font-size: .875rem;
+      background: var(--chip-bg);
+      color: var(--chip-fg);
+      box-shadow: 0 1px 1.5px rgba(17, 24, 39, 0.06);
+      transition: border-color .2s, box-shadow .2s, transform .06s, background-color .2s, color .2s;
+    }
+    .chip:hover { border-color: var(--chip-hover-border); box-shadow: 0 2px 8px rgba(17,24,39,.08); }
+    .chip:active { transform: translateY(1px); }
+    .chip:focus-visible { outline: none; box-shadow: 0 0 0 6px var(--ring); }
+    .chip.active { background: var(--chip-active-bg); color: var(--chip-active-fg); border-color: var(--chip-active-bg); box-shadow: 0 6px 18px rgba(17,24,39,.18); }
+
+    /* --- Cards --- */
+    .media-card { transition: transform .25s ease, box-shadow .25s ease; background: #fff; }
+    .media-card:hover { transform: translateY(-6px); box-shadow: 0 18px 40px rgba(0,0,0,.12); }
+    .media-thumb { width: 100%; height: 14rem; object-fit: cover; border-top-left-radius: .75rem; border-top-right-radius: .75rem; }
+
+    /* --- Subtle entrance animation --- */
+    .fade-enter { opacity: 0; transform: translateY(16px); }
+    .fade-enter-active { transition: all .35s ease; opacity: 1; transform: translateY(0); }
+
+    /* --- Backdrop --- */
+    .nh-backdrop { background: rgba(0,0,0,.8); }
+
+    /* --- Tag pills --- */
+    .tag-badge {
+      display: inline-flex; align-items: center; gap: .375rem;
+      padding: .25rem .625rem; border-radius: 9999px;
+      font-size: .75rem; font-weight: 600;
+      background: #f9fafb; color: #6b7280; border: 1px solid #e5e7eb;
+    }
+
+    /* --- Unified button style (Load more, Lightbox arrows, etc.) --- */
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+      padding:.75rem 1.25rem; border-radius: 1rem; font-weight:700; letter-spacing:.01em;
+      transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+    }
+    .btn:focus-visible { outline: none; box-shadow: 0 0 0 6px var(--ring); }
+    .btn:active { transform: translateY(1px); }
+    .btn-primary { background:#111827; color:#fff; }
+    .btn-primary:hover { background:#0b1220; box-shadow: 0 12px 28px rgba(17,24,39,.25); }
+
+    .btn-soft { background:#ffffff; color:#111827; border:1px solid #e5e7eb; }
+    .btn-soft:hover { background:#f9fafb; box-shadow: 0 8px 18px rgba(17,24,39,.12); }
+
+    /* --- Lightbox controls --- */
+    .lb-arrow { position:absolute; top:50%; transform: translateY(-50%); width: 2.75rem; height: 2.75rem; border-radius: 9999px; }
+    .lb-arrow svg { width: 1.1rem; height: 1.1rem; }
+    /* Ensure close (X) is always clearly visible */
+  #lb-close { background: #ffffff; color: #000000; border: 1px solid #e5e7eb; }
+  #lb-close svg { stroke: #000000; }
+</style>
+</head>
+<body class="min-h-screen text-gray-800 p-6">
+  <!-- Header -->
+  <header class="max-w-5xl mx-auto flex justify-between items-center py-6 mb-8">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Notes for Hope</h1>
+    <nav class="space-x-4">
+      <a href="index.html#home" class="text-gray-700 hover:text-black">Home</a>
+      <a href="performers.html" class="text-gray-700 hover:text-black">Performers</a>
+      <a href="past.html" class="text-gray-900 font-semibold">Past Performances</a>
+      <a href="contact.html" class="text-gray-700 hover:text-black">Contact</a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-5xl font-bold mb-4 text-gray-900">Past Performances</h2>
+      <p class="text-lg text-gray-600">Browse highlights from previous events and relive the magic</p>
+    </div>
+
+    <!-- Controls -->
+    <section class="bg-white rounded-2xl shadow-sm p-6 mb-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <!-- Year filter -->
+        <div class="flex flex-wrap gap-3" id="year-filter">
+          <!-- Years injected by JS -->
+        </div>
+        <!-- Search -->
+        <div class="relative w-full md:w-80">
+          <input id="search" type="text" placeholder="Search performances..." 
+                 class="w-full border border-gray-300 focus:border-gray-500 rounded-xl px-4 py-2 pr-10 transition-colors outline-none bg-white">
+          <svg class="w-5 h-5 absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10 18a8 8 0 1 1 0-16 8 8 0 0 1 0 16z"/></svg>
+        </div>
+      </div>
+      <!-- Type filter -->
+      <div class="flex flex-wrap gap-3 mt-4" id="type-filter">
+        <button data-type="all" class="chip active">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M3 6a1 1 0 011-1h16a1 1 0 011 1v11a2 2 0 01-2 2H5a2 2 0 01-2-2V6z"/></svg>
+          All Media
+        </button>
+        <button data-type="image" class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M4 5a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V7a2 2 0 00-2-2H4zm3 3a2 2 0 110 4 2 2 0 010-4zm13 9H4l5-6 3 4 2-2 6 4z"/></svg>
+          Photos
+        </button>
+        <button data-type="video" class="chip">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M15 10.5V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-3.5l6 3.5V7l-6 3.5z"/></svg>
+          Videos
+        </button>
+      </div>
+    </section>
+
+    <!-- Gallery Grid -->
+    <section id="grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></section>
+
+    <div class="flex justify-center mt-8">
+      <button id="load-more" class="btn btn-primary hidden">Load More</button>
+    </div>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="fixed inset-0 hidden items-center justify-center nh-backdrop p-6 z-50">
+    <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full p-4 relative">
+      <button id="lb-close" aria-label="Close" class="absolute right-3 top-3 btn btn-soft w-10 h-10 p-0">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="lb-content" class="aspect-video w-full bg-gray-100 rounded-xl overflow-hidden"></div>
+      <div id="lb-caption" class="mt-3 text-center text-gray-700 font-medium"></div>
+    </div>
+  </div>
+
+  <footer class="max-w-6xl mx-auto mt-20 text-center text-sm text-gray-500">
+    &copy; <span id="year"></span> Notes for Hope. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ====== 🎯 ADD YOUR PERFORMANCE DATA HERE ======
+    const PERFORMANCES = [
+      {
+        id: 'performance-1',
+        title: 'Senior Home Performance',
+        date: '2025-7-13',
+        venue: 'Pasadena Villa Gardens',
+        tags: ['violin', 'piano', 'retirement home'],
+        media: [
+          { 
+            type: 'image', 
+            src: 'images/past.JPG',
+            alt: 'Musicians performing',  
+            caption: 'Opening performance' 
+          }
+        ]
+      }
+    ];
+
+    // ====== RENDERING LOGIC ======
+    const grid = document.getElementById('grid');
+    const yearFilter = document.getElementById('year-filter');
+    const typeFilter = document.getElementById('type-filter');
+    const search = document.getElementById('search');
+    const loadMoreBtn = document.getElementById('load-more');
+
+    const YEARS = Array.from(new Set(PERFORMANCES.map(p => new Date(p.date).getFullYear()))).sort((a,b)=>b-a);
+    let state = { year: 'all', type: 'all', query: '', page: 1, pageSize: 9 };
+
+    function buildYearChips(){
+      yearFilter.innerHTML = '';
+      const allBtn = document.createElement('button');
+      allBtn.className = 'chip active';
+      allBtn.dataset.year = 'all';
+      allBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2 inline"><path d="M12 3l9 7-9 7-9-7 9-7z"/></svg>All Years';
+      yearFilter.appendChild(allBtn);
+      YEARS.forEach(y=>{
+        const b = document.createElement('button');
+        b.className = 'chip';
+        b.dataset.year = String(y);
+        b.textContent = y;
+        yearFilter.appendChild(b);
+      });
+    }
+
+    function cardFor(item){
+      const m = item.media[0];
+      const year = new Date(item.date).getFullYear();
+      const el = document.createElement('article');
+      el.className = 'media-card rounded-xl shadow-sm overflow-hidden fade-enter';
+      el.innerHTML = `
+        <div class="relative">
+          ${m.type === 'image' ? 
+            `<img src="${m.thumb || m.src}" alt="${m.alt || item.title}" class="media-thumb">` :
+            `<video class="media-thumb" ${m.poster ? `poster="${m.poster}"`:''} muted>
+              <source src="${m.src}" type="video/mp4">
+            </video>
+            <div class="absolute top-3 right-3 bg-white/90 rounded-full p-2 shadow">
+              <svg class="w-5 h-5 text-gray-800" fill="currentColor" viewBox="0 0 20 20"><path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/></svg>
+            </div>`
+          }
+          <button class="btn btn-soft absolute bottom-3 right-3 shadow-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4"><path d="M15 10.5V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-3.5l6 3.5V7l-6 3.5z"/></svg>
+            View ${item.media.length > 1 ? `(${item.media.length})` : ''}
+          </button>
+        </div>
+        <div class="p-5">
+          <h3 class="text-lg font-semibold mb-2 text-gray-900">${item.title}</h3>
+          <p class="text-sm text-gray-600 mb-3">
+            ${new Date(item.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} • ${item.venue}
+          </p>
+          <div class="flex flex-wrap gap-1.5">
+            ${(item.tags||[]).map(t=>`<span class="tag-badge">${t}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      const viewBtn = el.querySelector('button');
+      viewBtn.addEventListener('click', ()=> openLightbox(item));
+      el.dataset.year = String(year);
+      el.dataset.types = item.media.map(mm=>mm.type).join(',');
+      requestAnimationFrame(()=> el.classList.add('fade-enter-active'));
+      return el;
+    }
+
+    function pipeline(){
+      const filtered = PERFORMANCES.filter(p=>{
+        const yearOk = state.year==='all' || new Date(p.date).getFullYear()===Number(state.year);
+        const typeOk = state.type==='all' || p.media.some(m=>m.type===state.type);
+        const q = state.query.trim().toLowerCase();
+        const qOk = !q || [p.title,p.venue,(p.tags||[]).join(' ')].join(' ').toLowerCase().includes(q);
+        return yearOk && typeOk && qOk;
+      });
+      const end = state.page * state.pageSize;
+      const pageItems = filtered.slice(0, end);
+      grid.innerHTML = '';
+      pageItems.forEach(item=> grid.appendChild(cardFor(item)));
+      loadMoreBtn.classList.toggle('hidden', filtered.length <= end);
+    }
+
+    buildYearChips();
+
+    yearFilter.addEventListener('click', (e)=>{
+      const b = e.target.closest('button'); 
+      if(!b) return;
+      yearFilter.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+      b.classList.add('active');
+      state.year = b.dataset.year;
+      state.page = 1; 
+      pipeline();
+    });
+
+    typeFilter.addEventListener('click', (e)=>{
+      const b = e.target.closest('button'); 
+      if(!b) return;
+      typeFilter.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+      b.classList.add('active');
+      state.type = b.dataset.type;
+      state.page = 1; 
+      pipeline();
+    });
+
+    search.addEventListener('input', ()=>{ 
+      state.query = search.value; 
+      state.page = 1; 
+      pipeline(); 
+    });
+
+    loadMoreBtn.addEventListener('click', ()=>{ 
+      state.page++; 
+      pipeline(); 
+    });
+
+    // ====== LIGHTBOX ======
+    const lb = document.getElementById('lightbox');
+    const lbContent = document.getElementById('lb-content');
+    const lbCaption = document.getElementById('lb-caption');
+
+    function openLightbox(item){
+      closeLightbox(true);
+      lbContent.innerHTML = '';
+      let index = 0;
+      const wrap = document.createElement('div');
+      wrap.className = 'relative h-full';
+
+      function renderSlide(i){
+        lbContent.innerHTML = '';
+        const m = item.media[i];
+        if(m.type==='image'){
+          const img = document.createElement('img');
+          img.src = m.src; 
+          img.alt = m.alt || item.title; 
+          img.className = 'w-full h-full object-contain';
+          lbContent.appendChild(img);
+        } else {
+          const v = document.createElement('video');
+          if(m.poster) v.poster = m.poster;
+          v.controls = true; 
+          v.autoplay = true; 
+          v.className = 'w-full h-full';
+          const s = document.createElement('source'); 
+          s.src = m.src; 
+          s.type = 'video/mp4';
+          v.appendChild(s); 
+          lbContent.appendChild(v);
+        }
+        lbCaption.textContent = [item.title, m.caption || ''].filter(Boolean).join(' — ');
+      }
+
+      if(item.media.length > 1){
+        const prev = document.createElement('button');
+        prev.className = 'btn btn-soft lb-arrow left-4';
+        prev.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 19l-7-7 7-7"/></svg>';
+        prev.addEventListener('click', ()=>{ index = (index-1+item.media.length)%item.media.length; renderSlide(index); });
+        wrap.appendChild(prev);
+
+        const next = document.createElement('button');
+        next.className = 'btn btn-soft lb-arrow right-4';
+        next.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5l7 7-7 7"/></svg>';
+        next.addEventListener('click', ()=>{ index = (index+1)%item.media.length; renderSlide(index); });
+        wrap.appendChild(next);
+      }
+
+      lbContent.appendChild(wrap);
+      renderSlide(index);
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+
+      function onKey(e){
+        if(e.key==='Escape') closeLightbox();
+        if(e.key==='ArrowLeft' && item.media.length>1){ index = (index-1+item.media.length)%item.media.length; renderSlide(index); }
+        if(e.key==='ArrowRight' && item.media.length>1){ index = (index+1)%item.media.length; renderSlide(index); }
+      }
+      document.addEventListener('keydown', onKey);
+      lb._onKey = onKey;
+    }
+
+    function closeLightbox(skipHide){
+      lbContent.querySelectorAll('video').forEach(v=>{ try { v.pause(); } catch(_){} });
+      if(!skipHide){ lb.classList.add('hidden'); lb.classList.remove('flex'); }
+      if(lb._onKey){ document.removeEventListener('keydown', lb._onKey); lb._onKey = null; }
+    }
+
+    lb.addEventListener('click', (e)=>{ if(e.target===lb) closeLightbox(); });
+    document.getElementById('lb-close').addEventListener('click', ()=> closeLightbox());
+
+    pipeline();
+  </script>
+</body>
+</html>

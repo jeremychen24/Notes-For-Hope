@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes for Hope</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
+    }
+    /* Carousel helpers */
+    .nh-slide { display: none; }
+    .nh-slide.active { display: block; }
+  </style>
+</head>
+<body class="min-h-screen text-gray-800 p-6">
+  <!-- Header -->
+  <header class="max-w-5xl mx-auto flex justify-between items-center py-6">
+    <h1 class="text-3xl font-bold tracking-tight">Notes for Hope</h1>
+    <nav class="space-x-4">
+      <a href="#home" class="text-gray-700 hover:text-black">Home</a>
+      <a href="performers.html" class="text-gray-700 hover:text-black">Performers</a>
+      <a href="past.html" class="text-gray-700 hover:text-black">Past Performances</a>
+      <a href="contact.html" class="text-gray-700 hover:text-black">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <main class="max-w-5xl mx-auto mt-10 text-center" id="home">
+    <h2 class="text-5xl font-bold mb-4">Bringing Joy Through Music</h2>
+    <p class="text-lg text-gray-600 mb-6">
+      Notes for Hope is a 501(c)(3) nonprofit dedicated to brightening the lives of retirement home residents through live musical performances.
+    </p>
+    <a href="#contact" class="inline-block bg-black text-white hover:bg-gray-800 text-lg px-6 py-3 rounded-2xl shadow-md">
+      Get Involved
+    </a>
+
+    <!-- Latest Performance Carousel -->
+    <section id="latest" class="mt-16 text-left">
+      <h3 class="text-2xl md:text-3xl font-semibold mb-4 text-center">Latest Performance Highlights</h3>
+      <p class="text-gray-600 text-center mb-6">Swipe, click, or use your arrow keys to browse photos and videos.</p>
+
+      <div class="relative bg-white rounded-2xl shadow p-2 md:p-4">
+        <!-- Slides -->
+        <div class="nh-slide active">
+          <img src="images\group.jpeg" alt="Performance photo 1" class="w-full h-auto rounded-xl" />
+        </div>
+        <div class="nh-slide">
+          <video class="w-full rounded-xl" controls preload="metadata" poster="https://via.placeholder.com/1280x720?text=Video+poster">
+            <source src="images\1031.mov" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="nh-slide">
+          <img src="images/group2.JPG" alt="Performance photo 2" class="w-full h-auto rounded-xl" />
+        </div>
+        
+
+        <!-- Controls -->
+        <button aria-label="Previous" id="nh-prev" class="hidden md:flex items-center justify-center absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button aria-label="Next" id="nh-next" class="hidden md:flex items-center justify-center absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 shadow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        <!-- Dots -->
+        <div class="flex items-center justify-center gap-2 mt-4" id="nh-dots" aria-label="Slide indicators"></div>
+      </div>
+    </section>
+
+    <!-- Feature cards -->
+    <div class="grid md:grid-cols-3 gap-6 mt-16 text-left">
+      <div class="bg-white rounded-2xl shadow-sm p-6">
+        <svg class="w-10 h-10 text-indigo-600 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19V6l12-2v13"></path></svg>
+        <h3 class="text-xl font-semibold mb-2">Live Performances</h3>
+        <p class="text-sm text-gray-600">Our volunteers perform music regularly in retirement homes, uplifting spirits and creating cherished moments.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm p-6">
+        <svg class="w-10 h-10 text-indigo-600 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 0 0 2.22 0L21 8M5 19h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2z"></path></svg>
+        <h3 class="text-xl font-semibold mb-2">Community Engagement</h3>
+        <p class="text-sm text-gray-600">We believe music has the power to connect generations and foster meaningful relationships.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl shadow-sm p-6">
+        <svg class="w-10 h-10 text-indigo-600 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4"></path></svg>
+        <h3 class="text-xl font-semibold mb-2">Volunteer Driven</h3>
+        <p class="text-sm text-gray-600">Our organization is powered by passionate volunteers who share a love for music and giving back.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="mt-20 text-center text-sm text-gray-500"> 
+    &copy; <span id="year"></span> Notes for Hope. All rights reserved.
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.nh-slide'));
+      const dotsContainer = document.getElementById('nh-dots');
+      const prevBtn = document.getElementById('nh-prev');
+      const nextBtn = document.getElementById('nh-next');
+      let idx = 0;
+      let autoplayId = null;
+      const AUTOPLAY_MS = 6000;
+
+      function show(i) {
+        slides.forEach((el, n) => {
+          el.classList.toggle('active', n === i);
+          const vid = el.querySelector('video');
+          if (vid && n !== i && !vid.paused) vid.pause();
+        });
+        dotsContainer.querySelectorAll('button').forEach((b, n) => {
+          b.setAttribute('aria-current', n === i ? 'true' : 'false');
+          b.classList.toggle('bg-indigo-600', n === i);
+          b.classList.toggle('bg-gray-300', n !== i);
+        });
+        idx = i;
+      }
+
+      function next() { show((idx + 1) % slides.length); }
+      function prev() { show((idx - 1 + slides.length) % slides.length); }
+
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'w-2.5 h-2.5 rounded-full bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500';
+        dot.title = 'Go to slide ' + (i + 1);
+        dot.addEventListener('click', () => show(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      prevBtn && prevBtn.addEventListener('click', prev);
+      nextBtn && nextBtn.addEventListener('click', next);
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prev();
+        else if (e.key === 'ArrowRight') next();
+      });
+
+      let startX = 0, isTouching = false;
+      const container = dotsContainer.parentElement;
+      container.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX; isTouching = true;
+      }, { passive: true });
+      container.addEventListener('touchmove', (e) => {
+        if (!isTouching) return;
+        const dx = e.touches[0].clientX - startX;
+        if (Math.abs(dx) > 40) { dx > 0 ? prev() : next(); isTouching = false; }
+      }, { passive: true });
+      container.addEventListener('touchend', () => { isTouching = false; });
+
+      function startAutoplay() { stopAutoplay(); autoplayId = setInterval(next, AUTOPLAY_MS); }
+      function stopAutoplay() { if (autoplayId) { clearInterval(autoplayId); autoplayId = null; } }
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
+
+      show(0);
+      startAutoplay();
+    })();
+  </script>
+</body>
+</html>
