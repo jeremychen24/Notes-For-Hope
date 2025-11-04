@@ -62,7 +62,7 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    emailjs.init("Wef96cbjOZkw9VBYJ");
+    emailjs.init("oBuWXvbJMkmpSM7tR");
 
     document.getElementById("contact-form").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -71,7 +71,7 @@
       statusEl.classList.remove("hidden", "text-green-600", "text-red-600");
       statusEl.textContent = "Sending...";
 
-      emailjs.sendForm("service_ec77e4b", "template_i0e3shw", this)
+      emailjs.sendForm("service_qs67crb", "template_i0e3shw", this)
         .then(() => {
           statusEl.textContent = "Message sent successfully!";
           statusEl.classList.add("text-green-600");
