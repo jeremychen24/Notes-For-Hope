@@ -9,13 +9,13 @@
     body {
       background: linear-gradient(to bottom right, #ffffff, #f1f5f9);
     }
-    /* Carousel helpers */
+
     .nh-slide { display: none; }
     .nh-slide.active { display: block; }
   </style>
 </head>
 <body class="min-h-screen text-gray-800 p-6">
-  <!-- Header -->
+
   <header class="max-w-5xl mx-auto flex justify-between items-center py-6">
     <h1 class="text-3xl font-bold tracking-tight">Notes for Hope</h1>
     <nav class="space-x-4">
@@ -26,7 +26,7 @@
     </nav>
   </header>
 
-  <!-- Hero -->
+
   <main class="max-w-5xl mx-auto mt-10 text-center" id="home">
     <h2 class="text-5xl font-bold mb-4">Bringing Joy Through Music</h2>
     <p class="text-lg text-gray-600 mb-6">
@@ -36,13 +36,13 @@
       Get Involved
     </a>
 
-    <!-- Latest Performance Carousel -->
+
     <section id="latest" class="mt-16 text-left">
       <h3 class="text-2xl md:text-3xl font-semibold mb-4 text-center">Latest Performance Highlights</h3>
       <p class="text-gray-600 text-center mb-6">Swipe, click, or use your arrow keys to browse photos and videos.</p>
 
       <div class="relative bg-white rounded-2xl shadow p-2 md:p-4">
-        <!-- Slides -->
+
         <div class="nh-slide active">
           <img src="images\group.jpeg" alt="Performance photo 1" class="w-full h-auto rounded-xl" />
         </div>
@@ -57,7 +57,7 @@
         </div>
         
 
-        <!-- Controls -->
+ 
         <button aria-label="Previous" id="nh-prev" class="hidden md:flex items-center justify-center absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/80 hover:bg-white rounded-full w-10 h-10 shadow">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
         </button>
@@ -65,12 +65,12 @@
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
         </button>
 
-        <!-- Dots -->
+
         <div class="flex items-center justify-center gap-2 mt-4" id="nh-dots" aria-label="Slide indicators"></div>
       </div>
     </section>
 
-    <!-- Feature cards -->
+
     <div class="grid md:grid-cols-3 gap-6 mt-16 text-left">
       <div class="bg-white rounded-2xl shadow-sm p-6">
         <svg class="w-10 h-10 text-indigo-600 mb-4" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 19V6l12-2v13"></path></svg>
@@ -92,12 +92,12 @@
     </div>
   </main>
 
-  <!-- Footer -->
+
   <footer id="contact" class="mt-20 text-center text-sm text-gray-500"> 
     &copy; <span id="year"></span> Notes for Hope. All rights reserved.
   </footer>
 
-  <!-- Scripts -->
+  <!-- JAVASCRIPT STARTS HERE WOOHOO -->
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
